@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
+/*
+  Impruv · design tokens
+  "The workshop wall": warm paper, ink, and a single green that
+  only ever means "shipped". Customer voices speak in serif
+  italics; the system around them talks in mono.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #faf8f4;
+  --card: #ffffff;
+  --ink: #211c15;
+  --muted: #6a6255;
+  --faint: #94897b;
+  --line: rgb(33 28 21 / 0.09);
+  --line-strong: rgb(33 28 21 / 0.16);
+
+  --accent: #1d6b4e;
+  --accent-ink: #16563e;
+  --on-accent: #f5fbf7;
+
+  --status-review: #97621c;
+  --status-planned: #33689c;
+
+  --dot: rgb(33 28 21 / 0.1);
 }
+
+/*
+  Light only, like the classic SaaS landing page. The palette above
+  is the single source of truth; no prefers-color-scheme overrides.
+*/
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --color-review: var(--status-review);
+  --color-planned: var(--status-planned);
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 24%, transparent);
+}
+
+/* ————————————————— utilities ————————————————— */
+
+@utility shadow-panel {
+  box-shadow:
+    0 0 0 1px rgb(33 28 21 / 0.035),
+    0 1px 2px rgb(33 28 21 / 0.04),
+    0 12px 32px -12px rgb(33 28 21 / 0.1),
+    0 32px 72px -32px rgb(33 28 21 / 0.16);
+}
+
+@utility shadow-card-hover {
+  box-shadow:
+    0 0 0 1px rgb(33 28 21 / 0.045),
+    0 2px 4px rgb(33 28 21 / 0.04),
+    0 16px 36px -12px rgb(33 28 21 / 0.14);
+}
+
+/* Bulletin-board dot texture, faded at the edges */
+@utility board-texture {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+
+@utility texture-fade {
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 62% at 50% 0%,
+    black 26%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 85% 62% at 50% 0%,
+    black 26%,
+    transparent 78%
+  );
+}
+
+/* ————————————————— motion ————————————————— */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* A caret mid-typing on the public page form */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility animate-caret {
+  animation: caret-blink 1.1s linear infinite;
+}
+
+/*
+  The signature: a feedback card travelling new → planned → shipped.
+  Three stacked pills crossfade over a 13s loop. Base state (and the
+  reduced-motion state) is "new".
+*/
+@keyframes stage-new {
+  0%,
+  26% {
+    opacity: 1;
+  }
+  31%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes stage-planned {
+  0%,
+  32% {
+    opacity: 0;
+  }
+  37%,
+  59% {
+    opacity: 1;
+  }
+  64%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes stage-shipped {
+  0%,
+  63% {
+    opacity: 0;
+  }
+  68%,
+  92% {
+    opacity: 1;
+  }
+  97%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@utility anim-stage-new {
+  animation: stage-new 13s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@utility anim-stage-planned {
+  animation: stage-planned 13s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@utility anim-stage-shipped {
+  animation: stage-shipped 13s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
