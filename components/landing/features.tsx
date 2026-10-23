@@ -62,7 +62,7 @@ const FEATURES: Feature[] = [
 /** The featured card carries a small proof: the public link itself. */
 function PublicLinkChip() {
   return (
-    <div className="flex items-center gap-2.5 self-start rounded-lg border border-line bg-paper px-3.5 py-2.5 font-mono text-[13px] text-muted">
+    <div className="flex items-center gap-2.5 self-start rounded-lg border border-line bg-paper px-3.5 py-2.5 font-mono text-[13px] text-muted text-nowrap">
       <BrowserIcon className="size-4 shrink-0 text-faint" />
       impruv.app/p/mobile-app
     </div>
@@ -83,9 +83,7 @@ export function Features() {
           {FEATURES.map(({ icon: Icon, title, copy, featured }) => (
             <li
               key={title}
-              className={
-                featured ? `${CARD_CLASS} sm:col-span-2` : CARD_CLASS
-              }
+              className={featured ? `${CARD_CLASS} sm:col-span-2` : CARD_CLASS}
             >
               <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
                 <div className="max-w-md">
