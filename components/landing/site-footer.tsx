@@ -1,12 +1,12 @@
 import { Logo } from "./logo";
+import { isExternal, NEW_TAB_PROPS, SIGN_IN_URL } from "./links";
 import { Container } from "./section";
 
 const FOOTER_LINKS = [
   { href: "#workflow", label: "Como funciona" },
   { href: "#features", label: "Funcionalidades" },
   { href: "#publica", label: "Página pública" },
-  // TODO: wire to the sign-in route
-  { href: "#", label: "Entrar" },
+  { href: SIGN_IN_URL, label: "Entrar" },
 ];
 
 export function SiteFooter() {
@@ -24,6 +24,7 @@ export function SiteFooter() {
                 <a
                   key={link.label}
                   href={link.href}
+                  {...(isExternal(link.href) ? NEW_TAB_PROPS : {})}
                   className="transition-colors duration-200 hover:text-ink"
                 >
                   {link.label}

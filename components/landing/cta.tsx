@@ -1,5 +1,5 @@
 import { ButtonLink } from "./button";
-import { SIGN_UP_URL } from "./links";
+import { SIGN_IN_URL, SIGN_UP_URL } from "./links";
 import { Container, Section } from "./section";
 
 export function Cta() {
@@ -19,8 +19,7 @@ export function Cta() {
             <ButtonLink href={SIGN_UP_URL} size="lg">
               Criar sua organização
             </ButtonLink>
-            {/* TODO: wire to the sign-in route */}
-            <ButtonLink href="#" variant="secondary" size="lg">
+            <ButtonLink href={SIGN_IN_URL} variant="secondary" size="lg">
               Entrar
             </ButtonLink>
           </div>
