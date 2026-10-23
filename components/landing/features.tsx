@@ -1,4 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
+import { SIGN_UP_URL } from "./links";
 import { Container, Section, SectionHeader } from "./section";
 import {
   ArrowRightIcon,
@@ -116,7 +117,9 @@ export function Features() {
               página pública de feedback.
             </p>
             <a
-              href="#cta"
+              href={SIGN_UP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 font-medium underline-offset-4 transition-colors duration-200 hover:underline"
             >
               Criar sua organização

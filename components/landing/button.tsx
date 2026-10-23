@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { isExternal, NEW_TAB_PROPS } from "./links";
 
 type ButtonLinkProps = {
   href: string;
@@ -32,6 +33,7 @@ export function ButtonLink({
   return (
     <a
       href={href}
+      {...(isExternal(href) ? NEW_TAB_PROPS : {})}
       className={`inline-flex items-center justify-center font-medium whitespace-nowrap transition duration-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}

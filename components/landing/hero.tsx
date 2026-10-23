@@ -1,4 +1,5 @@
 import { ButtonLink } from "./button";
+import { SIGN_UP_URL } from "./links";
 import { Container } from "./section";
 import { StatusPill, type FeedbackStatus } from "./status-pill";
 import { ArrowDownIcon, BoardIcon } from "./icons";
@@ -153,7 +154,7 @@ export function Hero() {
             className="animate-rise mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
             style={{ animationDelay: "210ms" }}
           >
-            <ButtonLink href="#cta" size="lg">
+            <ButtonLink href={SIGN_UP_URL} size="lg">
               Começar a coletar
             </ButtonLink>
             <ButtonLink href="#workflow" variant="secondary" size="lg">
