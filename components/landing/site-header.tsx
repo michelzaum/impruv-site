@@ -1,5 +1,6 @@
 import { Logo } from "./logo";
 import { ButtonLink } from "./button";
+import { SIGN_UP_URL } from "./links";
 import { Container } from "./section";
 
 const NAV_LINKS = [
@@ -40,7 +41,7 @@ export function SiteHeader() {
             >
               Entrar
             </ButtonLink>
-            <ButtonLink href="#cta" size="sm">
+            <ButtonLink href={SIGN_UP_URL} size="sm">
               Começar
             </ButtonLink>
           </div>
