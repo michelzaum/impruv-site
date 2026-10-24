@@ -1,4 +1,5 @@
 import { ButtonLink } from "./button";
+import { SIGN_UP_URL } from "./links";
 import { Container } from "./section";
 import { StatusPill, type FeedbackStatus } from "./status-pill";
 import { ArrowDownIcon, BoardIcon } from "./icons";
@@ -12,47 +13,34 @@ import { ArrowDownIcon, BoardIcon } from "./icons";
 
 type BoardRow = {
   quote: string;
-  tag: string;
   status: FeedbackStatus;
   /** This row's status cycles through every stage (hero signature). */
   animated?: boolean;
 };
 
 /*
-  v1: submissions are anonymous, with no author names on the cards and
-  no votes yet, so the board is a clean triage feed.
+  v1: submissions are anonymous, with no author names, categories or
+  votes yet, so the board is a clean triage feed.
 */
 const BOARD_ROWS: BoardRow[] = [
   {
     quote: "Adoraria um modo escuro para ler à noite.",
-    tag: "Sugestão",
     status: "new",
     animated: true,
   },
   {
     quote: "Modo offline para as listas de aulas salvas.",
-    tag: "Sugestão",
     status: "new",
   },
   {
     quote: "O botão de exportação está escondido nas Configurações.",
-    tag: "Usabilidade",
     status: "review",
   },
   {
     quote: "Edição em massa de membros da equipe.",
-    tag: "Equipes",
     status: "shipped",
   },
 ];
-
-function TagChip({ children }: { children: string }) {
-  return (
-    <span className="rounded-full bg-ink/[0.05] px-2 py-0.5 font-mono text-[10px] tracking-[0.08em] text-muted uppercase">
-      {children}
-    </span>
-  );
-}
 
 /** The animated three-stage status of the signature card. */
 function CyclingStatus() {
@@ -103,7 +91,6 @@ function BoardPanel() {
               “{row.quote}”
             </p>
             <div className="mt-2.5 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-[13px] text-faint">
-              <TagChip>{row.tag}</TagChip>
               {row.animated ? <CyclingStatus /> : null}
               {!row.animated ? <StatusPill status={row.status} /> : null}
             </div>
@@ -153,7 +140,7 @@ export function Hero() {
             className="animate-rise mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
             style={{ animationDelay: "210ms" }}
           >
-            <ButtonLink href="#cta" size="lg">
+            <ButtonLink href={SIGN_UP_URL} size="lg">
               Começar a coletar
             </ButtonLink>
             <ButtonLink href="#workflow" variant="secondary" size="lg">

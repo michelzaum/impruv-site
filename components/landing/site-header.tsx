@@ -1,5 +1,6 @@
 import { Logo } from "./logo";
 import { ButtonLink } from "./button";
+import { SIGN_IN_URL, SIGN_UP_URL } from "./links";
 import { Container } from "./section";
 
 const NAV_LINKS = [
@@ -31,16 +32,15 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2.5">
-            {/* TODO: wire to the sign-in route */}
             <ButtonLink
-              href="#"
+              href={SIGN_IN_URL}
               variant="secondary"
               size="sm"
               className="hidden sm:inline-flex"
             >
               Entrar
             </ButtonLink>
-            <ButtonLink href="#cta" size="sm">
+            <ButtonLink href={SIGN_UP_URL} size="sm">
               Começar
             </ButtonLink>
           </div>
