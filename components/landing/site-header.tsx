@@ -19,7 +19,10 @@ export function SiteHeader() {
             <Logo />
           </a>
 
-          <nav aria-label="Principal" className="hidden items-center gap-7 md:flex">
+          <nav
+            aria-label="Principal"
+            className="hidden items-center gap-7 md:flex"
+          >
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
